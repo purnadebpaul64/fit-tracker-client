@@ -10,7 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useContext, useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../../Providers/AuthProviders";
 import Logo from "../Logo/Logo";
 
@@ -39,21 +39,21 @@ const Navbar = () => {
                   <span>Home</span>
                 </NavLink>
                 <NavLink
-                  to={"/all-blogs"}
+                  to={"/all-trainer"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <UserSearch className="h-4 w-4" />
                   <span>All Trainer</span>
                 </NavLink>
                 <NavLink
-                  to={"/featured-blogs"}
+                  to={"/all-classes"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <NotebookPen className="h-4 w-4" />
                   <span>All Classes</span>
                 </NavLink>
                 <NavLink
-                  to={"/featured-blogs"}
+                  to={"/community"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <Gem className="h-4 w-4" />
@@ -68,14 +68,14 @@ const Navbar = () => {
                   user && (
                     <>
                       <NavLink
-                        to="/add-blog"
+                        to="/dashboard"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
                         <CirclePlus className="h-4 w-4" />
                         <span>Dashboard</span>
                       </NavLink>
                       <NavLink
-                        to="/wishlist"
+                        to="/profile"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
                         <BookmarkCheck className="h-4 w-4" />
@@ -88,12 +88,18 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="btn px-3 py-2 rounded-md text-white hover:bg-white/10">
+              <Link
+                to={"/auth"}
+                className="btn px-3 py-2 rounded-md text-white hover:bg-white/10"
+              >
                 Sign In
-              </button>
-              <button className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+              </Link>
+              <Link
+                to={"auth/register"}
+                className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+              >
                 Get Started
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -122,21 +128,21 @@ const Navbar = () => {
                   <span>Home</span>
                 </NavLink>
                 <NavLink
-                  to={"/all-blogs"}
+                  to={"/all-trainer"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <UserSearch className="h-4 w-4" />
                   <span>All Trainer</span>
                 </NavLink>
                 <NavLink
-                  to={"/featured-blogs"}
+                  to={"/all-classes"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <NotebookPen className="h-4 w-4" />
                   <span>All Classes</span>
                 </NavLink>
                 <NavLink
-                  to={"/featured-blogs"}
+                  to={"/community"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <Gem className="h-4 w-4" />
@@ -151,14 +157,14 @@ const Navbar = () => {
                   user && (
                     <>
                       <NavLink
-                        to="/add-blog"
+                        to="/dashboard"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
                         <CirclePlus className="h-4 w-4" />
                         <span>Dashboard</span>
                       </NavLink>
                       <NavLink
-                        to="/wishlist"
+                        to="/profile"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
                         <BookmarkCheck className="h-4 w-4" />
@@ -169,12 +175,18 @@ const Navbar = () => {
                 )}
               </ul>
               <div className="flex flex-col space-y-4 mt-4">
-                <button className="btn text-white hover:bg-white/10 py-2 px-4">
+                <Link
+                  to={"/login"}
+                  className="btn text-white hover:bg-white/10 py-2 px-4"
+                >
                   Sign In
-                </button>
-                <button className="btn bg-gradient-to-r from-purple-500 to-pink-500 py-2 px-4">
+                </Link>
+                <Link
+                  to={"/register"}
+                  className="btn bg-gradient-to-r from-purple-500 to-pink-500 py-2 px-4"
+                >
                   Get Started
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}

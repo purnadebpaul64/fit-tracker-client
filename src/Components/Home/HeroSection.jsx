@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { ArrowRight, Play, Star, Trophy, Users } from "lucide-react";
 import animationData from "../../assets/Fitness.json";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   return (
@@ -44,10 +45,13 @@ const HeroSection = () => {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg px-8 py-4 font-semibold text-white rounded-lg">
-              Start Free Trial
+            <Link
+              to={"/all-classes"}
+              className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg px-8 py-4 font-semibold text-white rounded-lg"
+            >
+              See Our Classes
               <ArrowRight className="ml-2 w-5 h-5" />
-            </button>
+            </Link>
             <button className="flex items-center justify-center border-2 border-white/20 text-white hover:bg-white/10 text-lg px-6 py-4 bg-transparent rounded-lg">
               <Play className="mr-2 w-5 h-5" />
               Watch Demo
