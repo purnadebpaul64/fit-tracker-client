@@ -24,7 +24,7 @@ const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10"
       >
-        <div className="container mx-auto px-4">
+        <div className="w-11/12 mx-auto">
           <div className="flex items-center justify-between h-16">
             <Logo></Logo>
 
@@ -87,7 +87,7 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               <button className="btn px-3 py-2 rounded-md text-white hover:bg-white/10">
                 Sign In
               </button>
@@ -98,7 +98,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white"
+              className="lg:hidden text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X /> : <Menu />}
@@ -111,7 +111,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-black/40 backdrop-blur-md rounded-lg mt-2 p-4"
+              className="lg:hidden bg-black/40 backdrop-blur-md rounded-lg mt-2 p-4"
             >
               <ul className="gap-5 py-2 font-bold">
                 <NavLink
