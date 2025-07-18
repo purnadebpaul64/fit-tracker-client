@@ -1,9 +1,50 @@
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Login = () => {
+  const { signIn, googleSignIn, loading, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [showPass, setShowPass] = useState(false);
+  const from = location?.state?.from?.pathname || "/";
+  if (user) return <Navigate to={from} replace={true} />;
+  // if (loading) return <LoadingSpinner />;
+  // form submit handler
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+      //User Login
+      await signIn(email, password);
+
+      navigate(from, { replace: true });
+      toast.success("Login Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
+  };
+
+  // Handle Google Signin
+  const handleGoogleSignIn = async () => {
+    try {
+      //User Registration using google
+      await googleSignIn();
+      navigate(from, { replace: true });
+      toast.success("Login Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
+  };
   return (
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
@@ -22,23 +63,35 @@ const Login = () => {
       <div class="relative flex flex-col rounded-xl p-6 text-white border border-slate-300 bg-white/5">
         <h4 class="block text-xl font-medium text-center">Login</h4>
 
-        <form class="mt-8 mb-2">
+        <form onSubmit={handleSubmit} class="mt-8 mb-2">
           <div class="mb-2 flex flex-col gap-6">
             <div class="w-full">
               <label class="block mb-1 text-sm ">Email</label>
               <input
                 type="email"
+                name="email"
                 class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 placeholder="Your Email"
               />
             </div>
             <div class="w-full">
               <label class="block mb-1 text-sm">Password</label>
-              <input
-                type="password"
-                class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Your Password"
-              />
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                  placeholder="Your Password"
+                />
+                <div
+                  onClick={() => {
+                    setShowPass(!showPass);
+                  }}
+                  className="absolute top-2 right-2"
+                >
+                  {showPass ? <Eye size={20} /> : <EyeOff size={20} />}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -46,14 +99,17 @@ const Login = () => {
             type="submit"
             className="w-full text-white mt-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-blue-500/25 border border-white/20 backdrop-blur-sm"
           >
-            Register
+            Login
           </Button>
           <div className="flex items-center gap-4 my-3">
             <hr className="flex-grow border-t border-gray-300" />
             <span className="text-white/75 text-sm">OR</span>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
-          <Button className="flex gap-2 w-full justify-center bg-white text-black border-[#e5e5e5]">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="flex gap-2 w-full justify-center bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

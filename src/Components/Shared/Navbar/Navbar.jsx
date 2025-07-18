@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import {
+  CirclePlus,
+  CircleUser,
   Dumbbell,
   FileText,
   Gem,
@@ -9,14 +11,15 @@ import {
   UserSearch,
   X,
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../../../Providers/AuthProviders";
 import Logo from "../Logo/Logo";
+import useAuth from "../../../Hooks/useAuth";
+import avatarImg from "../../../assets/avatar.webp";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, loading, logOut } = useContext(AuthContext);
+  const { user, loading, logOut } = useAuth();
   return (
     <div>
       <motion.nav
@@ -78,7 +81,7 @@ const Navbar = () => {
                         to="/profile"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
-                        <BookmarkCheck className="h-4 w-4" />
+                        <CircleUser className="h-4 w-4" />
                         <span>Profile</span>
                       </NavLink>
                     </>
@@ -87,20 +90,39 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="hidden lg:flex items-center space-x-4">
-              <Link
-                to={"/auth"}
-                className="btn px-3 py-2 rounded-md text-white hover:bg-white/10"
-              >
-                Sign In
-              </Link>
-              <Link
-                to={"auth/register"}
-                className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
-              >
-                Get Started
-              </Link>
-            </div>
+            {user ? (
+              <div className="hidden lg:flex items-center space-x-4">
+                <div>
+                  <img
+                    className="w-10 h-10 rounded-full object-cover"
+                    referrerPolicy="no-referrer"
+                    src={user && user.photoURL ? user.photoURL : avatarImg}
+                    alt="profile"
+                  />
+                </div>
+                <div
+                  onClick={logOut}
+                  className="btn cursor-pointer px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                >
+                  Logout
+                </div>
+              </div>
+            ) : (
+              <div className="hidden lg:flex items-center space-x-4">
+                <Link
+                  to={"/auth"}
+                  className="btn px-3 py-2 rounded-md text-white hover:bg-white/10"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to={"auth/register"}
+                  className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -167,27 +189,46 @@ const Navbar = () => {
                         to="/profile"
                         className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                       >
-                        <BookmarkCheck className="h-4 w-4" />
+                        <CircleUser className="h-4 w-4" />
                         <span>Profile</span>
                       </NavLink>
                     </>
                   )
                 )}
               </ul>
-              <div className="flex flex-col space-y-4 mt-4">
-                <Link
-                  to={"/login"}
-                  className="btn text-white hover:bg-white/10 py-2 px-4"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to={"/register"}
-                  className="btn bg-gradient-to-r from-purple-500 to-pink-500 py-2 px-4"
-                >
-                  Get Started
-                </Link>
-              </div>
+              {user ? (
+                <div className="space-x-4 flex flex-col gap-3">
+                  <div>
+                    <img
+                      className="w-10 h-10 rounded-full object-cover"
+                      referrerPolicy="no-referrer"
+                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                      alt="profile"
+                    />
+                  </div>
+                  <div
+                    onClick={logOut}
+                    className="btn cursor-pointer w-full text-center px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                  >
+                    Logout
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col space-y-4 mt-4">
+                  <Link
+                    to={"/auth"}
+                    className="btn rounded-md text-center bg-white/5 text-white hover:bg-white/10 py-2 px-4"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to={"auth/register"}
+                    className="btn w-full text-center px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
             </motion.div>
           )}
         </div>

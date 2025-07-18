@@ -1,9 +1,78 @@
 import { Button } from "@material-tailwind/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Loader } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import { imageUpload } from "../../Api/utils";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Register = () => {
+  const { createUser, updateUser, googleSignIn, loading } = useAuth();
+  const [showPass, setShowPass] = useState(false);
+  const [passError, setPassError] = useState([]);
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const imageFile = form.image.files[0];
+
+    setPassError("");
+    const errors = [];
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter.");
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must contain at least one lowercase letter.");
+    }
+    if (!/\d/.test(password)) {
+      errors.push("Password must contain at least one number.");
+    }
+    if (password.length < 6) {
+      errors.push("Password must be at least 6 characters long.");
+    }
+
+    if (errors.length > 0) {
+      setPassError(errors);
+      return;
+    }
+
+    try {
+      // 1. Upload image to imgbb
+      const imageUrl = await imageUpload(imageFile);
+
+      // 2. Create user with email/password
+      await createUser(email, password);
+      await updateUser({
+        displayName: name,
+        photoURL: imageUrl,
+      });
+      toast.success("Registration successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("Failed to register.");
+    }
+  };
+
+  // Handle Google Signin
+  const handleGoogleSignIn = async () => {
+    try {
+      //User Registration using google
+      await googleSignIn();
+
+      navigate("/");
+      toast.success("Signup Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
+  };
   return (
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
@@ -19,15 +88,18 @@ const Register = () => {
           Back to Home
         </Link>
       </div>
-      <div class="relative max-w-md flex flex-col rounded-xl p-6 text-white border border-slate-300 bg-white/5">
-        <h4 class="block text-xl font-medium text-center">Create Account</h4>
+      <div class="relative flex flex-col rounded-xl p-6 text-white border border-slate-300 bg-white/5">
+        <h4 className="block text-xl font-medium text-center">
+          Create Account
+        </h4>
 
-        <form class="mt-8 mb-2">
+        <form onSubmit={handleRegister} class="mt-8 mb-2">
           <div class="mb-2 flex flex-col gap-6">
             <div class="w-full">
               <label class="block mb-1 text-sm">Your Name</label>
               <input
                 type="text"
+                name="name"
                 class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 placeholder="Your Name"
               />
@@ -36,6 +108,7 @@ const Register = () => {
               <label class="block mb-1 text-sm ">Email</label>
               <input
                 type="email"
+                name="email"
                 class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 placeholder="Your Email"
               />
@@ -45,7 +118,7 @@ const Register = () => {
                 Select Image:
               </label>
               <input
-                className=" cursor-pointer border border-slate-200 px-3 py-2 text-sm rounded-md w-full "
+                className="cursor-pointer border border-slate-200 px-3 py-2 text-sm rounded-md w-full "
                 type="file"
                 id="image"
                 name="image"
@@ -54,11 +127,32 @@ const Register = () => {
             </div>
             <div class="w-full">
               <label class="block mb-1 text-sm">Password</label>
-              <input
-                type="password"
-                class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Your Password"
-              />
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  class="w-full bg-transparent placeholder:text-slate-400 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                  placeholder="Your Password"
+                />
+                <div
+                  onClick={() => {
+                    setShowPass(!showPass);
+                  }}
+                  className="absolute top-2 right-2 btn btn-ghost"
+                >
+                  {showPass ? <Eye /> : <EyeOff />}
+                </div>
+              </div>
+              {/* password validation errors */}
+              {passError.length > 0 && (
+                <div className="p-2 rounded bg-black/20 mt-4">
+                  <ul className="text-red-500 list-disc list-inside mt-2 text-xs">
+                    {passError.map((err, i) => (
+                      <li key={i}>{err}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
@@ -66,14 +160,17 @@ const Register = () => {
             type="submit"
             className="w-full text-white mt-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-blue-500/25 border border-white/20 backdrop-blur-sm"
           >
-            Register
+            {loading ? <Loader className="animate-spin m-auto" /> : "Register"}
           </Button>
           <div className="flex items-center gap-4 my-3">
             <hr className="flex-grow border-t border-gray-300" />
             <span className="text-white/75 text-sm">OR</span>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
-          <Button className="flex gap-2 w-full justify-center bg-white text-black border-[#e5e5e5]">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="flex gap-2 w-full justify-center bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"
