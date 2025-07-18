@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { Skeleton, Tooltip } from "@material-tailwind/react";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import useAuth from "../../../Hooks/useAuth";
@@ -64,8 +65,8 @@ const Navbar = () => {
                 </NavLink>
                 {loading ? (
                   <>
-                    <div className="skeleton h-8 w-24 rounded-md"></div>
-                    <div className="skeleton h-8 w-24 rounded-md"></div>
+                    <div className="animate-pulse h-8 w-24 bg-white/10 rounded-md"></div>
+                    <div className="animate-pulse h-8 w-24 bg-white/10 rounded-md"></div>
                   </>
                 ) : (
                   user && (
@@ -90,7 +91,7 @@ const Navbar = () => {
               </ul>
             </div>
 
-            {user ? (
+            {/* {user ? (
               <div className="hidden lg:flex items-center space-x-4">
                 <div>
                   <img
@@ -122,7 +123,57 @@ const Navbar = () => {
                   Get Started
                 </Link>
               </div>
-            )}
+            )} */}
+
+            <div className="hidden lg:flex items-center space-x-4">
+              {!loading ? (
+                user ? (
+                  <div className="flex items-center space-x-3">
+                    <Tooltip
+                      content={user.displayName}
+                      placement="bottom"
+                      offset={10}
+                      className="z-[9999] bg-white text-black rounded-md shadow-md text-sm font-medium"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center cursor-pointer">
+                        <img
+                          src={user.photoURL}
+                          alt={user.displayName}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </div>
+                    </Tooltip>
+
+                    <button
+                      className="btn cursor-pointer px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                      onClick={logOut}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center space-x-2">
+                    <Link
+                      to={"/auth"}
+                      className="btn px-3 py-2 rounded-md text-white hover:bg-white/10"
+                    >
+                      <p>Login</p>
+                    </Link>
+                    <Link
+                      to={"/auth/registration"}
+                      className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                    >
+                      Register
+                    </Link>
+                  </div>
+                )
+              ) : (
+                <>
+                  <div className="animate-pulse h-10 w-10 bg-white/10 rounded-full"></div>
+                  <div className="animate-pulse h-8 w-24 bg-white/10 rounded-md"></div>
+                </>
+              )}
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -172,8 +223,8 @@ const Navbar = () => {
                 </NavLink>
                 {loading ? (
                   <>
-                    <div className="skeleton h-8 w-24 rounded-md"></div>
-                    <div className="skeleton h-8 w-24 rounded-md"></div>
+                    <div className="animate-pulse h-8 w-24 bg-white/10 rounded-md"></div>
+                    <div className="animate-pulse h-8 w-24 bg-white/10 rounded-md"></div>
                   </>
                 ) : (
                   user && (
@@ -198,14 +249,20 @@ const Navbar = () => {
               </ul>
               {user ? (
                 <div className="space-x-4 flex flex-col gap-3">
-                  <div>
-                    <img
-                      className="w-10 h-10 rounded-full object-cover"
-                      referrerPolicy="no-referrer"
-                      src={user && user.photoURL ? user.photoURL : avatarImg}
-                      alt="profile"
-                    />
-                  </div>
+                  <Tooltip
+                    content={user.displayName}
+                    placement="right"
+                    offset={10}
+                    className="z-[9999] bg-white text-black rounded-md shadow-md text-sm font-medium"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center cursor-pointer">
+                      <img
+                        src={user.photoURL}
+                        alt={user.displayName}
+                        className="w-full h-full rounded-full object-cover"
+                      />
+                    </div>
+                  </Tooltip>
                   <div
                     onClick={logOut}
                     className="btn cursor-pointer w-full text-center px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
