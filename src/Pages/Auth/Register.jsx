@@ -3,7 +3,7 @@ import { ArrowLeft, Eye, EyeOff, Loader } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
-import { imageUpload } from "../../Api/utils";
+import { imageUpload, saveUserInDb } from "../../Api/utils";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
@@ -52,8 +52,14 @@ const Register = () => {
         displayName: name,
         photoURL: imageUrl,
       });
-      toast.success("Registration successful!");
+      const userData = {
+        displayName: name,
+        email,
+        photoURL: imageUrl,
+      };
+      await saveUserInDb(userData);
       navigate("/");
+      toast.success("Registration successful!");
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("Failed to register.");

@@ -1,10 +1,11 @@
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { saveUserInDb } from "../../Api/utils";
 
 const Login = () => {
   const { signIn, googleSignIn, loading, user } = useAuth();
@@ -23,7 +24,13 @@ const Login = () => {
 
     try {
       //User Login
-      await signIn(email, password);
+      const result = await signIn(email, password);
+      const userData = {
+        displayName: result?.user?.displayName,
+        email: result?.user?.email,
+        photoURL: result?.user?.photoURL,
+      };
+      await saveUserInDb(userData);
 
       navigate(from, { replace: true });
       toast.success("Login Successful");
@@ -37,7 +44,13 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       //User Registration using google
-      await googleSignIn();
+      const result = await googleSignIn();
+      const userData = {
+        displayName: result?.user?.displayName,
+        email: result?.user?.email,
+        photoURL: result?.user?.photoURL,
+      };
+      await saveUserInDb(userData);
       navigate(from, { replace: true });
       toast.success("Login Successful");
     } catch (err) {

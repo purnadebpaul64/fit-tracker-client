@@ -160,7 +160,7 @@ const Navbar = () => {
                       <p>Login</p>
                     </Link>
                     <Link
-                      to={"/auth/registration"}
+                      to={"/auth/register"}
                       className="btn px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
                     >
                       Register
