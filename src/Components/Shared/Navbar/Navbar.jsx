@@ -43,7 +43,7 @@ const Navbar = () => {
                   <span>Home</span>
                 </NavLink>
                 <NavLink
-                  to={"/all-trainer"}
+                  to={"/all-trainers"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <UserSearch className="h-4 w-4" />
@@ -201,7 +201,7 @@ const Navbar = () => {
                   <span>Home</span>
                 </NavLink>
                 <NavLink
-                  to={"/all-trainer"}
+                  to={"/all-trainers"}
                   className="flex items-center space-x-1 text-[#757D85] hover:text-[#f4f8fb] transition-colors font-medium px-3 py-2 rounded-md "
                 >
                   <UserSearch className="h-4 w-4" />

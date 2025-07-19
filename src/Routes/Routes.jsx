@@ -8,6 +8,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout";
 import BecomeTrainer from "../Pages/Dashboard/Trainer/BecomeTrainer";
+import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
+      },
+      {
+        path: "/all-trainers",
+        element: <AllTrainers></AllTrainers>,
       },
     ],
   },
