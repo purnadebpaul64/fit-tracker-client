@@ -7,6 +7,7 @@ import Register from "../Pages/Auth/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout";
+import BecomeTrainer from "../Pages/Dashboard/Trainer/BecomeTrainer";
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,11 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "become-trainer",
+        element: <BecomeTrainer />,
+      },
+    ],
   },
 ]);
