@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layout/DashboardLayout";
 import BecomeTrainer from "../Pages/Dashboard/Trainer/BecomeTrainer";
 import AllTrainers from "../Pages/AllTrainers/AllTrainers";
+import TrainerDetail from "../Pages/TrainerDetail/TrainerDetail";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/all-trainers",
         element: <AllTrainers></AllTrainers>,
+      },
+      {
+        path: "/trainer-detail/:id",
+        element: <TrainerDetail></TrainerDetail>,
       },
     ],
   },

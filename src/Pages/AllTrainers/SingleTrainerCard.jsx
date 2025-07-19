@@ -6,7 +6,7 @@ import {
   Chip,
   Typography,
 } from "@material-tailwind/react";
-import { Clock, Users } from "lucide-react";
+import { Clock, Facebook, Instagram, Linkedin, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -16,7 +16,7 @@ const fadeInUp = {
 };
 
 const SingleTrainerCard = ({ trainer }) => {
-  const { fullName, profileImage, experience, age, availableDays } = trainer;
+  const { fullName, profileImage, experience, social, availableDays } = trainer;
 
   return (
     <motion.div variants={fadeInUp}>
@@ -68,6 +68,23 @@ const SingleTrainerCard = ({ trainer }) => {
               className="text-xs mr-1 inline-block bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30 mb-4"
             />
           ))}
+        </div>
+        <div className="flex justify-center gap-2 mb-2">
+          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
+            <a href={social?.facebook}>
+              <Facebook size={17} />
+            </a>
+          </div>
+          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
+            <a href={social?.instagram}>
+              <Instagram size={17} />
+            </a>
+          </div>
+          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
+            <a href={social?.linkedin}>
+              <Linkedin size={17} />
+            </a>
+          </div>
         </div>
         <Button className="cursor-pointer w-full text-center px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
           Know More
