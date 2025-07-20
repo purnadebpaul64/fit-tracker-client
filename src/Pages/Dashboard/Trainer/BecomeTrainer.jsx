@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
 import { imageUpload } from "../../../Api/utils";
+import { Button } from "@material-tailwind/react";
 
 const BecomeTrainer = () => {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ const BecomeTrainer = () => {
     email: user?.email || "",
     age: "",
     experience: "",
+    about: "",
     profileImage: "",
     skills: [],
     availableDays: [],
@@ -94,6 +96,7 @@ const BecomeTrainer = () => {
       fullName: trainerData.fullName,
       email: trainerData.email,
       age: trainerData.age,
+      about: trainerData.about,
       experience: trainerData.experience,
       profileImage: imageUrl,
       skills: trainerData.skills,
@@ -119,6 +122,7 @@ const BecomeTrainer = () => {
           email: user?.email || "",
           age: "",
           experience: "",
+          about: "",
           skills: [],
           availableDays: [],
           availableTime: [],
@@ -137,7 +141,7 @@ const BecomeTrainer = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
+    <div className="w-8/12 mx-auto my-20 p-8 border border-white bg-white/90 rounded-2xl">
       <h2 className="text-2xl font-semibold mb-6">Become a Trainer</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name and Email */}
@@ -201,6 +205,18 @@ const BecomeTrainer = () => {
             className="file-input file-input-bordered w-full border border-gray-500 p-2 rounded"
           />
         </div>
+        {/* about */}
+        <div>
+          <label className="block mb-1">Write about yourself</label>
+          <textarea
+            name="about"
+            className="w-full border border-gray-500 p-2 rounded"
+            placeholder="Write here"
+            value={trainerData.about}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
         {/* Skills */}
         <div>
@@ -250,13 +266,13 @@ const BecomeTrainer = () => {
         </div>
 
         {/* Social Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block mb-1">Facebook</label>
             <input
               type="url"
               name="facebook"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full border p-2 rounded"
               placeholder="Facebook URL"
               value={trainerData.facebook}
               onChange={handleChange}
@@ -267,7 +283,7 @@ const BecomeTrainer = () => {
             <input
               type="url"
               name="linkedin"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full border p-2 rounded"
               placeholder="LinkedIn URL"
               value={trainerData.linkedin}
               onChange={handleChange}
@@ -278,7 +294,7 @@ const BecomeTrainer = () => {
             <input
               type="url"
               name="instagram"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full border p-2 rounded"
               placeholder="Instagram URL"
               value={trainerData.instagram}
               onChange={handleChange}
@@ -286,9 +302,12 @@ const BecomeTrainer = () => {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary w-full mt-4">
+        <Button
+          type="submit"
+          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-16 py-2 mt-4 text-lg"
+        >
           {loading ? "Submitting..." : "Apply"}
-        </button>
+        </Button>
       </form>
     </div>
   );

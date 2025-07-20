@@ -29,6 +29,10 @@ export const router = createBrowserRouter([
         path: "/trainer-detail/:id",
         element: <TrainerDetail></TrainerDetail>,
       },
+      {
+        path: "/become-trainer",
+        element: <BecomeTrainer />,
+      },
     ],
   },
   {
@@ -52,11 +56,6 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
-    children: [
-      {
-        path: "become-trainer",
-        element: <BecomeTrainer />,
-      },
-    ],
+    children: [{}],
   },
 ]);

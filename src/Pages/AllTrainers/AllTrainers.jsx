@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import SingleTrainerCard from "./SingleTrainerCard";
 import useTrainers from "../../Hooks/useTrainers";
+import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 
 const staggerContainer = {
   animate: {
@@ -22,7 +23,7 @@ const AllTrainers = () => {
   const { trainers = [], isLoading, isError } = useTrainers();
 
   if (isLoading) {
-    return <p className="text-white text-center mt-20">Loading trainers...</p>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   if (isError) {
