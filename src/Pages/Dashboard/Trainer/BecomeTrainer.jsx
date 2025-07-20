@@ -141,7 +141,7 @@ const BecomeTrainer = () => {
   };
 
   return (
-    <div className="w-8/12 mx-auto my-20 p-8 border border-white bg-white/90 rounded-2xl">
+    <div className="w-11/12 sm:w-8/12 mx-auto my-20 p-8 border border-white bg-white/90 rounded-2xl">
       <h2 className="text-2xl font-semibold mb-6">Become a Trainer</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name and Email */}
