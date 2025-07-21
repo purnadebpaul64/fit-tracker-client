@@ -12,6 +12,7 @@ import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 import TrainerDetail from "../Pages/TrainerDetail/TrainerDetail";
 import AddSlot from "../Components/Dashboard/Trainer/AddSlot";
 import AddClass from "../Components/Dashboard/Admin/AddClass";
+import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/become-trainer",
         element: <BecomeTrainer />,
+      },
+      {
+        path: "/book-session/:id",
+        element: <TrainerBooked></TrainerBooked>,
       },
     ],
   },
