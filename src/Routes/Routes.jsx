@@ -13,6 +13,8 @@ import TrainerDetail from "../Pages/TrainerDetail/TrainerDetail";
 import AddSlot from "../Components/Dashboard/Trainer/AddSlot";
 import AddClass from "../Components/Dashboard/Admin/AddClass";
 import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
+import PaymentPage from "../Pages/PaymentPage/PaymentPage";
+import BookingSuccess from "../Pages/BookingSuccess/BookingSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
       {
         path: "/book-session/:id",
         element: <TrainerBooked></TrainerBooked>,
+      },
+      {
+        path: "/payment",
+        element: <PaymentPage></PaymentPage>,
+      },
+      {
+        path: "/booking-success",
+        element: <BookingSuccess></BookingSuccess>,
       },
     ],
   },
