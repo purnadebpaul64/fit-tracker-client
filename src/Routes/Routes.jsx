@@ -15,6 +15,7 @@ import AddClass from "../Components/Dashboard/Admin/AddClass";
 import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import BookingSuccess from "../Pages/BookingSuccess/BookingSuccess";
+import AllClasses from "../Pages/AllClasses/AllClasses";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "/booking-success",
         element: <BookingSuccess></BookingSuccess>,
+      },
+      {
+        path: "/all-classes",
+        element: <AllClasses></AllClasses>,
       },
     ],
   },
