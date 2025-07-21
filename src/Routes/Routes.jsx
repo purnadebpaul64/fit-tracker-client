@@ -10,6 +10,8 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import BecomeTrainer from "../Pages/Dashboard/Trainer/BecomeTrainer";
 import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 import TrainerDetail from "../Pages/TrainerDetail/TrainerDetail";
+import AddSlot from "../Components/Dashboard/Trainer/AddSlot";
+import AddClass from "../Components/Dashboard/Admin/AddClass";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,15 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
-    children: [{}],
+    children: [
+      {
+        path: "add-new-slot",
+        element: <AddSlot></AddSlot>,
+      },
+      {
+        path: "add-new-class",
+        element: <AddClass></AddClass>,
+      },
+    ],
   },
 ]);

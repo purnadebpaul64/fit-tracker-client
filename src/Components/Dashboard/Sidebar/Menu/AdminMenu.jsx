@@ -6,6 +6,7 @@ import {
   Users,
 } from "lucide-react";
 import MenuItem from "./Menuitem";
+import { Link } from "react-router";
 
 const AdminMenu = () => {
   return (
@@ -22,11 +23,13 @@ const AdminMenu = () => {
         address="applied-trainer"
       />
       <MenuItem icon={CircleDollarSign} label="Balance" address="balance" />
-      <MenuItem
-        icon={CirclePlus}
-        label="Add new Class"
-        address="add-new-class"
-      />
+      <Link to={"/add-new-class"}>
+        <MenuItem
+          icon={CirclePlus}
+          label="Add new Class"
+          address="add-new-class"
+        />
+      </Link>
     </>
   );
 };

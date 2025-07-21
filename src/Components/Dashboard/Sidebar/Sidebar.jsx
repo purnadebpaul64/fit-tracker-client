@@ -7,9 +7,11 @@ import MenuItem from "./Menu/Menuitem";
 import AdminMenu from "./Menu/AdminMenu";
 import TrainerMenu from "./Menu/TrainerMenu";
 import MemberMenu from "./Menu/MemberMenu";
+import useRole from "../../../Hooks/useRole";
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
+  const [role, isRoleLoading] = useRole();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -54,14 +56,15 @@ const Sidebar = () => {
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
               {/*  Menu Items */}
-              <MemberMenu />
-              <TrainerMenu />
-              <MenuItem
+              {role === "customer" && <MemberMenu />}
+              {role === "trainer" && <TrainerMenu />}
+              {role === "admin" && <AdminMenu />}
+
+              {/* <MenuItem
                 icon={ChartColumn}
                 label="Statistics"
                 address="/dashboard"
-              />
-              <AdminMenu />
+              /> */}
             </nav>
           </div>
         </div>

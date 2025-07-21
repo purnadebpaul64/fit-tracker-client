@@ -1,18 +1,15 @@
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router";
+import { Button, Chip } from "@material-tailwind/react";
+import { Facebook, Instagram, Linkedin, CircleAlert } from "lucide-react";
 import useTrainer from "../../Hooks/useTrainer";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
-import { Button, Chip } from "@material-tailwind/react";
-import { CircleAlert, Facebook, Instagram, Linkedin } from "lucide-react";
+import useTrainerSlots from "../../Hooks/useTrainerSlots";
 
 const TrainerDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: trainer, isLoading, error } = useTrainer(id);
-
-  if (isLoading) return <LoadingSpinner />;
-  if (!trainer)
-    return <p className="text-center text-white pt-20">Trainer not found.</p>;
 
   const {
     _id,
@@ -20,22 +17,26 @@ const TrainerDetail = () => {
     profileImage,
     experience,
     age,
-    skills,
+    skills = [],
     about,
-    social,
-    availableDays,
-    availableTime,
-  } = trainer;
+    social = {},
+  } = trainer || {};
+
+  const { data: slots = [], isLoading: slotsLoading } = useTrainerSlots(id);
+
+  if (isLoading || slotsLoading) return <LoadingSpinner />;
+  if (!trainer)
+    return <p className="text-center text-white pt-20">Trainer not found.</p>;
 
   return (
     <section className="w-11/12 lg:w-10/12 mx-auto pt-20 pb-16">
       {/* Trainer Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Profile Image */}
-        <div className="col-span-1">
+        <div>
           <img
             src={profileImage}
-            alt="Trainer"
+            alt={fullName}
             className="w-full h-full object-cover rounded-2xl max-h-[500px]"
           />
         </div>
@@ -43,18 +44,18 @@ const TrainerDetail = () => {
         {/* Trainer Details */}
         <div className="col-span-2 p-6 border border-white/50 rounded-xl text-white space-y-3 bg-white/5 hover:bg-white/8 transition">
           <div className="space-y-1.5">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-3xl md:text-4xl font-semibold block">
+            <h1 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               {fullName}
-            </span>
+            </h1>
             <p className="mt-4">Trainer Age: {age}</p>
             <p>Years of Experience: {experience}</p>
 
             <div className="flex flex-col sm:flex-row gap-2 flex-wrap items-start sm:items-center">
               <p>Expertise in:</p>
               <div className="flex flex-wrap">
-                {skills?.map((skill, index) => (
+                {skills.map((skill, i) => (
                   <Chip
-                    key={index}
+                    key={i}
                     value={skill}
                     className="text-xs mr-1 mb-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30"
                   />
@@ -63,9 +64,8 @@ const TrainerDetail = () => {
             </div>
           </div>
 
-          <hr className="border-white/20" />
-
           {/* About Section */}
+          <hr className="border-white/20" />
           <div>
             <div className="flex gap-2 items-center text-xl font-semibold">
               <p>About</p>
@@ -110,47 +110,62 @@ const TrainerDetail = () => {
         </div>
       </div>
 
-      {/* Available Days and Slots */}
-      <div className="text-white flex flex-col items-center mt-12 space-y-6">
-        <div className="text-center space-y-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold">Available Days</h2>
-          <div className="flex flex-wrap justify-center gap-2">
-            {availableDays?.map((day, index) => (
-              <Chip
-                key={index}
-                value={day}
-                className="text-sm sm:text-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30"
-              />
+      {/* Available Slots */}
+      <div className="w-full mt-12">
+        <h2 className="text-center text-2xl sm:text-3xl font-semibold text-white mb-4">
+          Available Slots
+        </h2>
+
+        {slots.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {slots.map((slot) => (
+              <div
+                key={slot._id}
+                className="bg-white/5 border border-white/10 rounded-lg p-4 text-white space-y-2 hover:bg-white/10 transition"
+              >
+                <p>
+                  <strong>Slot Name:</strong> {slot.slotName}
+                </p>
+                <div className="flex items-center">
+                  <strong className="mr-1">Day : </strong>
+                  {slot.availableDays?.map((day, i) => (
+                    <Chip
+                      key={i}
+                      value={day}
+                      className="text-xs mr-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30"
+                    />
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <strong>Time:</strong>{" "}
+                  <Chip
+                    value={slot.slotTime}
+                    className="text-xs mr-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30"
+                  />
+                </div>
+                <p>
+                  <strong>Class:</strong> {slot.className}
+                </p>
+                <button
+                  onClick={() =>
+                    navigate(`/book-session/${_id}?slotId=${slot._id}`)
+                  }
+                  className="mt-2 w-full px-4 py-2 rounded bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold shadow"
+                >
+                  Book Now
+                </button>
+              </div>
             ))}
           </div>
-        </div>
-
-        {/* Available Time Slots */}
-        {availableTime?.length > 0 && (
-          <div className="text-center space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-semibold">
-              Available Slots For Booking
-            </h2>
-            <div className="flex flex-wrap justify-center gap-3">
-              {availableTime.map((slot, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    navigate(
-                      `/book-session/${_id}?slot=${encodeURIComponent(slot)}`
-                    )
-                  }
-                  className="px-4 py-2 text-sm sm:text-md rounded-lg text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition shadow font-bold"
-                >
-                  {slot}
-                </button>
-              ))}
-            </div>
-          </div>
+        ) : (
+          <p className="text-white mt-10 text-center">
+            No slots available yet.
+          </p>
         )}
       </div>
 
-      {/* Become a Trainer CTA */}
+      {/* Call to Action */}
       <div className="w-full mt-20 py-16 px-4 bg-gradient-to-r from-purple-500/30 to-pink-500/30 text-white text-center rounded-2xl">
         <h1 className="text-3xl md:text-5xl font-bold mb-4">
           Become a Certified Trainer
@@ -161,7 +176,7 @@ const TrainerDetail = () => {
           network.
         </p>
         <Link to="/become-trainer">
-          <Button className="px-6 md:px-8 py-2 text-sm md:text-md rounded-lg text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition shadow font-bold mt-5">
+          <Button className="mt-5 px-6 md:px-8 py-2 rounded-lg text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow font-bold">
             Become A Trainer
           </Button>
         </Link>

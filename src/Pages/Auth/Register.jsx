@@ -70,7 +70,13 @@ const Register = () => {
   const handleGoogleSignIn = async () => {
     try {
       //User Registration using google
-      await googleSignIn();
+      const result = await googleSignIn();
+      const userData = {
+        displayName: result?.user?.displayName,
+        email: result?.user?.email,
+        photoURL: result?.user?.photoURL,
+      };
+      await saveUserInDb(userData);
 
       navigate("/");
       toast.success("Signup Successful");

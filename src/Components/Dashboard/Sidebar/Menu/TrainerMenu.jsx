@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import MenuItem from "./Menuitem";
 import {
   ChartNoAxesGantt,
@@ -14,7 +15,14 @@ const TrainerMenu = () => {
         label="Manage Slots"
         address="manage-slots"
       />
-      <MenuItem icon={CirclePlus} label="Add New slot" address="add-new-slot" />
+      <Link to={"/dashboard/add-new-slot"}>
+        <MenuItem
+          icon={CirclePlus}
+          label="Add New slot"
+          address="add-new-slot"
+        />
+      </Link>
+
       <MenuItem
         icon={CirclePlus}
         label="Add New Forum"

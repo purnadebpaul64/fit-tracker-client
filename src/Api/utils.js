@@ -29,3 +29,7 @@ export const getAllTrainers = async () => {
   const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/trainers`);
   return data;
 };
+export const getAllUsers = async () => {
+  const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`);
+  return data;
+};
