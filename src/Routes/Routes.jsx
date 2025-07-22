@@ -19,6 +19,7 @@ import AllClasses from "../Pages/AllClasses/AllClasses";
 import AddForumForm from "../Components/Dashboard/Trainer/AddForumForm";
 import ForumsPage from "../Pages/Community/ForumsPage";
 import ForumDetailPage from "../Pages/Community/ForumDetailPage";
+import ManageSlots from "../Components/Dashboard/Trainer/ManageSlots";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "add-new-forum",
         element: <AddForumForm></AddForumForm>,
+      },
+      {
+        path: "manage-slots",
+        element: <ManageSlots></ManageSlots>,
       },
     ],
   },

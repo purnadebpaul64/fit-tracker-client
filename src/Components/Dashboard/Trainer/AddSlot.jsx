@@ -83,35 +83,49 @@ const AddSlot = () => {
   }));
 
   return (
-    <div className="w-11/12 sm:w-8/12 mx-auto my-12 p-8 bg-white border rounded-xl">
+    <section className="w-11/12 sm:w-8/12 mx-auto my-12 p-8 bg-white border rounded-xl">
       <h2 className="text-2xl font-semibold mb-6">Add New Slot</h2>
 
       {trainer ? (
         <form onSubmit={handleAddSlot} className="space-y-5">
           {/* Read-only trainer info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input readOnly value={trainer.fullName} className="input" />
-            <input readOnly value={trainer.email} className="input" />
+            <input
+              readOnly
+              value={trainer.fullName}
+              className="input p-2 border border-gray-300 rounded"
+            />
+            <input
+              readOnly
+              value={trainer.email}
+              className="input p-2 border border-gray-300 rounded"
+            />
           </div>
 
           {/* Slot Name & Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              placeholder="Slot Name (e.g. Morning Slot)"
-              value={slotName}
-              onChange={(e) => setSlotName(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              placeholder="Slot Time (e.g. 6AM - 8AM)"
-              value={slotTime}
-              onChange={(e) => setSlotTime(e.target.value)}
-              required
-            />
+            <div>
+              <label className="block mb-1 font-medium">Slote Name</label>
+              <input
+                type="text"
+                className="input input-bordered w-full p-2 border border-gray-300 rounded"
+                placeholder="Slot Name (e.g. Morning Slot)"
+                value={slotName}
+                onChange={(e) => setSlotName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium">Slot Time</label>
+              <input
+                type="text"
+                className="input input-bordered w-full p-2 border border-gray-300 rounded"
+                placeholder="Slot Time (e.g. 6AM - 8AM)"
+                value={slotTime}
+                onChange={(e) => setSlotTime(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
           {/* Available Days */}
@@ -147,7 +161,7 @@ const AddSlot = () => {
       ) : (
         <p>Loading trainer data...</p>
       )}
-    </div>
+    </section>
   );
 };
 
