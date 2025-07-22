@@ -26,7 +26,9 @@ const AddSlot = () => {
   // Fetch all classes
   useEffect(() => {
     const fetchClasses = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/classes`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/all-classes`
+      );
       setClasses(res.data);
     };
     fetchClasses();

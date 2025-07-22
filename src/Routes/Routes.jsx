@@ -16,6 +16,9 @@ import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import BookingSuccess from "../Pages/BookingSuccess/BookingSuccess";
 import AllClasses from "../Pages/AllClasses/AllClasses";
+import AddForumForm from "../Components/Dashboard/Trainer/AddForumForm";
+import ForumsPage from "../Pages/Community/ForumsPage";
+import ForumDetailPage from "../Pages/Community/ForumDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +58,14 @@ export const router = createBrowserRouter([
         path: "/all-classes",
         element: <AllClasses></AllClasses>,
       },
+      {
+        path: "/community",
+        element: <ForumsPage></ForumsPage>,
+      },
+      {
+        path: "/forums/:id",
+        element: <ForumDetailPage></ForumDetailPage>,
+      },
     ],
   },
   {
@@ -86,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: "add-new-class",
         element: <AddClass></AddClass>,
+      },
+      {
+        path: "add-new-forum",
+        element: <AddForumForm></AddForumForm>,
       },
     ],
   },
