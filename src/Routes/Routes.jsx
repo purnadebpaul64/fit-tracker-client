@@ -23,6 +23,7 @@ import ManageSlots from "../Components/Dashboard/Trainer/ManageSlots";
 import ActivityLog from "../Components/Dashboard/Member/ActivityLog";
 import BookedTrainerPage from "../Components/Dashboard/Member/BookedTrainerPage";
 import ProfilePage from "../Components/Dashboard/Member/ProfilePage";
+import NewsletterSubscribers from "../Components/Dashboard/Admin/NewsletterSubscribers";
 
 export const router = createBrowserRouter([
   {
@@ -121,6 +122,10 @@ export const router = createBrowserRouter([
       {
         path: "your-profile",
         element: <ProfilePage></ProfilePage>,
+      },
+      {
+        path: "newsletter-subs",
+        element: <NewsletterSubscribers></NewsletterSubscribers>,
       },
     ],
   },

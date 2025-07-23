@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const NewsletterSection = () => {
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { name, email } = formData;
+      if (!name || !email) {
+        return toast.error("Please fill in both name and email");
+      }
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/newsletter`,
+        {
+          name,
+          email,
+        }
+      );
+      setLoading(false);
+      toast.success("Successfully Subscribed!");
+      setFormData({ name: "", email: "" });
+    } catch (err) {
+      if (err.response?.status === 409) {
+        toast.error("You're already subscribed.");
+      } else {
+        toast.error("Subscription failed. Try again.");
+      }
+    }
+  };
+
   return (
     <section className="py-20">
       <div className="container mx-auto">
@@ -24,16 +58,29 @@ const NewsletterSection = () => {
             delivered to your inbox weekly.
           </p>
 
-          <form className="flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto"
+          >
             <input
               type="text"
+              name="name"
               placeholder="Your Name"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               className="flex-1 bg-white/10 border border-white/20 text-white placeholder:text-white/50 px-4 py-3 rounded-md focus:outline-none"
               required
             />
             <input
               type="email"
+              name="email"
               placeholder="Your Email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               className="flex-1 bg-white/10 border border-white/20 text-white placeholder:text-white/50 px-4 py-3 rounded-md focus:outline-none"
               required
             />
@@ -41,7 +88,7 @@ const NewsletterSection = () => {
               type="submit"
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-md font-semibold transition-all whitespace-nowrap"
             >
-              Subscribe Now
+              {loading ? "Subscribeing..." : "Subscribe Now"}
             </button>
           </form>
 
