@@ -21,6 +21,7 @@ import ForumsPage from "../Pages/Community/ForumsPage";
 import ForumDetailPage from "../Pages/Community/ForumDetailPage";
 import ManageSlots from "../Components/Dashboard/Trainer/ManageSlots";
 import ActivityLog from "../Components/Dashboard/Member/ActivityLog";
+import BookedTrainerPage from "../Components/Dashboard/Member/BookedTrainerPage";
 
 export const router = createBrowserRouter([
   {
@@ -111,6 +112,10 @@ export const router = createBrowserRouter([
       {
         path: "activity-log",
         element: <ActivityLog></ActivityLog>,
+      },
+      {
+        path: "booked-trainer",
+        element: <BookedTrainerPage></BookedTrainerPage>,
       },
     ],
   },
