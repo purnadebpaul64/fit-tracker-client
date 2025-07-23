@@ -22,6 +22,7 @@ import ForumDetailPage from "../Pages/Community/ForumDetailPage";
 import ManageSlots from "../Components/Dashboard/Trainer/ManageSlots";
 import ActivityLog from "../Components/Dashboard/Member/ActivityLog";
 import BookedTrainerPage from "../Components/Dashboard/Member/BookedTrainerPage";
+import ProfilePage from "../Components/Dashboard/Member/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "booked-trainer",
         element: <BookedTrainerPage></BookedTrainerPage>,
+      },
+      {
+        path: "your-profile",
+        element: <ProfilePage></ProfilePage>,
       },
     ],
   },
