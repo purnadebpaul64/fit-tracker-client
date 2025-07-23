@@ -24,6 +24,7 @@ import ActivityLog from "../Components/Dashboard/Member/ActivityLog";
 import BookedTrainerPage from "../Components/Dashboard/Member/BookedTrainerPage";
 import ProfilePage from "../Components/Dashboard/Member/ProfilePage";
 import NewsletterSubscribers from "../Components/Dashboard/Admin/NewsletterSubscribers";
+import AdminAllTrainers from "../Components/Dashboard/Admin/AdminAllTrainers";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,10 @@ export const router = createBrowserRouter([
       {
         path: "newsletter-subs",
         element: <NewsletterSubscribers></NewsletterSubscribers>,
+      },
+      {
+        path: "all-trainers",
+        element: <AdminAllTrainers></AdminAllTrainers>,
       },
     ],
   },

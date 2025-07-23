@@ -27,7 +27,7 @@ const NewsletterSubscribers = () => {
   }, []);
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <section className="w-full lg:w-10/12 mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6 text-center">
         Newsletter Subscribers
       </h1>
@@ -69,7 +69,7 @@ const NewsletterSubscribers = () => {
           </table>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
