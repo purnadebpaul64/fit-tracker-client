@@ -115,6 +115,7 @@ const BecomeTrainer = () => {
         `${import.meta.env.VITE_API_URL}/add-trainers`,
         trainerInfo
       );
+
       if (res.data.insertedId) {
         toast.success("Trainer Application Submitted!");
         setTrainerData({

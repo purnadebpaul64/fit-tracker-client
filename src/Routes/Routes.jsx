@@ -20,6 +20,7 @@ import AddForumForm from "../Components/Dashboard/Trainer/AddForumForm";
 import ForumsPage from "../Pages/Community/ForumsPage";
 import ForumDetailPage from "../Pages/Community/ForumDetailPage";
 import ManageSlots from "../Components/Dashboard/Trainer/ManageSlots";
+import ActivityLog from "../Components/Dashboard/Member/ActivityLog";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-slots",
         element: <ManageSlots></ManageSlots>,
+      },
+      {
+        path: "activity-log",
+        element: <ActivityLog></ActivityLog>,
       },
     ],
   },
