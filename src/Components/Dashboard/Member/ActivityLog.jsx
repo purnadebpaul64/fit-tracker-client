@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import axios from "axios";
 import { Eye } from "lucide-react";
-import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
+import {
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Button,
+} from "@material-tailwind/react";
 
 const ActivityLog = () => {
   const { user } = useAuth();
@@ -10,13 +16,13 @@ const ActivityLog = () => {
   const [selectedApp, setSelectedApp] = useState(null);
   const [open, setOpen] = useState(false);
 
+  const handleOpen = () => setOpen(!open);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/member-applications?email=${
-            user.email
-          }`
+          `${import.meta.env.VITE_API_URL}/member-applications/${user.email}`
         );
         setApplications(res.data);
       } catch (error) {
@@ -66,6 +72,7 @@ const ActivityLog = () => {
                   setSelectedApp(app);
                   setOpen(true);
                 }}
+                className="text-blue-600 hover:text-blue-800"
               >
                 <Eye />
               </button>
@@ -74,12 +81,26 @@ const ActivityLog = () => {
         ))}
       </div>
 
-      <Dialog open={open} handler={() => setOpen(false)}>
-        <DialogHeader>Rejection Feedback</DialogHeader>
-        <DialogBody>
-          <p>{selectedApp?.rejectionMessage || "No feedback provided."}</p>
-        </DialogBody>
-      </Dialog>
+      {open && (
+        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/50 bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+            <h3 className="text-3xl font-semibold text-center mb-4">
+              Rejection Feedback
+            </h3>
+            <p className="text-center text-gray-700 text-lg">
+              {selectedApp?.feedback || "No feedback provided."}
+            </p>
+            <div className="mt-6 flex justify-center">
+              <Button
+                className="bg-red-500 text-white"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

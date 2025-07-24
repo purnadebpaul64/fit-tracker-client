@@ -25,6 +25,8 @@ import BookedTrainerPage from "../Components/Dashboard/Member/BookedTrainerPage"
 import ProfilePage from "../Components/Dashboard/Member/ProfilePage";
 import NewsletterSubscribers from "../Components/Dashboard/Admin/NewsletterSubscribers";
 import AdminAllTrainers from "../Components/Dashboard/Admin/AdminAllTrainers";
+import AppliedTrainersList from "../Components/Dashboard/Admin/AppliedTrainersList";
+import AppliedTrainerDetails from "../Components/Dashboard/Admin/AppliedTrainerDetails";
 
 export const router = createBrowserRouter([
   {
@@ -131,6 +133,14 @@ export const router = createBrowserRouter([
       {
         path: "all-trainers",
         element: <AdminAllTrainers></AdminAllTrainers>,
+      },
+      {
+        path: "applied-trainer",
+        element: <AppliedTrainersList></AppliedTrainersList>,
+      },
+      {
+        path: "applied-trainers/:id",
+        element: <AppliedTrainerDetails></AppliedTrainerDetails>,
       },
     ],
   },
