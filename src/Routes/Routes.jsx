@@ -27,6 +27,7 @@ import NewsletterSubscribers from "../Components/Dashboard/Admin/NewsletterSubsc
 import AdminAllTrainers from "../Components/Dashboard/Admin/AdminAllTrainers";
 import AppliedTrainersList from "../Components/Dashboard/Admin/AppliedTrainersList";
 import AppliedTrainerDetails from "../Components/Dashboard/Admin/AppliedTrainerDetails";
+import AdminBalance from "../Components/Dashboard/Admin/AdminBalance";
 
 export const router = createBrowserRouter([
   {
@@ -141,6 +142,10 @@ export const router = createBrowserRouter([
       {
         path: "applied-trainers/:id",
         element: <AppliedTrainerDetails></AppliedTrainerDetails>,
+      },
+      {
+        path: "balance",
+        element: <AdminBalance></AdminBalance>,
       },
     ],
   },
