@@ -13,6 +13,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import { AudioWaveform, CircleDollarSign, ScrollText } from "lucide-react";
 
 const COLORS = ["#4ADE80", "#60A5FA"];
 
@@ -44,16 +45,18 @@ const AdminBalance = () => {
 
       {/* Total Balance */}
       <Card className="p-6 shadow-md">
-        <Typography variant="h5">💰 Total Balance:</Typography>
+        <Typography variant="h5" className="flex gap-2 items-center">
+          <CircleDollarSign /> Total Balance:
+        </Typography>
         <Typography variant="h3" color="green">
-          ${(totalBalance / 100).toFixed(2)}
+          $ {(totalBalance / 100).toFixed(2)}
         </Typography>
       </Card>
 
       {/* Chart */}
       <Card className="p-6 shadow-md">
-        <Typography variant="h5" className="mb-4">
-          📊 Subscribers vs Paid Members
+        <Typography variant="h5" className="mb-4 flex gap-2 items-center">
+          <AudioWaveform /> Subscribers vs Paid Members
         </Typography>
         <div className="flex flex-wrap gap-8 justify-center">
           <ResponsiveContainer width={400} height={400}>
@@ -82,8 +85,8 @@ const AdminBalance = () => {
 
       {/* Last 6 Transactions */}
       <Card className="p-6 shadow-md">
-        <Typography variant="h5" className="mb-4">
-          🧾 Recent Transactions
+        <Typography variant="h5" className="mb-4 flex gap-2 items-center">
+          <ScrollText /> Recent Transactions
         </Typography>
         <div className="overflow-x-auto">
           <table className="table-auto w-full border">

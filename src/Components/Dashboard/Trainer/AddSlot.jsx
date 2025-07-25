@@ -50,7 +50,7 @@ const AddSlot = () => {
       classId: selectedClass.value,
       className: selectedClass.label,
       created_at: new Date().toISOString(),
-      bookedBy: null, // initially null
+      bookedBy: null,
     };
 
     try {

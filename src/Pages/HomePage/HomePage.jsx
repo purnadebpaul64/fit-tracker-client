@@ -3,6 +3,7 @@ import HeroSection from "../../Components/Home/HeroSection";
 import FeaturedSection from "../../Components/Home/FeaturedSection";
 import AboutSection from "../../Components/Home/AboutSection";
 import NewsletterSection from "../../Components/Home/NewsletterSection";
+import FeaturedClasses from "../../Components/Home/FeaturedClasses/FeaturedClasses";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <HeroSection></HeroSection>
       <FeaturedSection></FeaturedSection>
       <AboutSection></AboutSection>
+      <FeaturedClasses></FeaturedClasses>
       <NewsletterSection></NewsletterSection>
     </div>
   );
