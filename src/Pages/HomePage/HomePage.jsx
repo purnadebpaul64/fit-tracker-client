@@ -4,8 +4,8 @@ import FeaturedSection from "../../Components/Home/FeaturedSection";
 import AboutSection from "../../Components/Home/AboutSection";
 import NewsletterSection from "../../Components/Home/NewsletterSection";
 import FeaturedClasses from "../../Components/Home/FeaturedClasses/FeaturedClasses";
-import ReviewCarousel from "../../Components/Home/ReviewCarousel";
 import ReviewSection from "../../Components/Home/ReviewsSection/ReviewsSection";
+import LatestCommunityPosts from "../../Components/Home/LatestCommunityPosts";
 
 const HomePage = () => {
   return (
@@ -15,6 +15,7 @@ const HomePage = () => {
       <AboutSection></AboutSection>
       <FeaturedClasses></FeaturedClasses>
       <ReviewSection></ReviewSection>
+      <LatestCommunityPosts></LatestCommunityPosts>
       <NewsletterSection></NewsletterSection>
     </div>
   );
