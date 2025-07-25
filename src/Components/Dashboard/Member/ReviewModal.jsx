@@ -1,10 +1,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAuth from "../../../Hooks/useAuth";
 
 const ReviewModal = ({ booking, onClose }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(5);
+  const { user } = useAuth();
 
   const handleSubmit = async () => {
     try {
@@ -12,6 +14,8 @@ const ReviewModal = ({ booking, onClose }) => {
         trainerId: booking.trainerId,
         trainerName: booking.trainer?.fullName,
         userEmail: booking.userEmail,
+        userName: user?.displayName,
+        userImage: user?.photoURL,
         rating,
         text,
         createdAt: new Date(),

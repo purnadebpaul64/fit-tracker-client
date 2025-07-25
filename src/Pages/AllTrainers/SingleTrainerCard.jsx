@@ -1,14 +1,18 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Star } from "lucide-react";
 import {
-  Button,
   Card,
-  CardBody,
-  CardHeader,
-  Chip,
   Typography,
+  Chip,
+  CardBody,
+  Button,
 } from "@material-tailwind/react";
-import { Clock, Facebook, Instagram, Linkedin, Users } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -16,62 +20,92 @@ const fadeInUp = {
   transition: { duration: 0.6 },
 };
 
-const SingleTrainerCard = ({ trainer }) => {
-  const { _id, fullName, profileImage, experience, social, availableDays } =
-    trainer;
-
+const ReviewCard = ({ review }) => {
   return (
     <motion.div variants={fadeInUp}>
       <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group overflow-hidden p-4 text-white/80">
-        <div className="">
+        <div className="flex items-center gap-3 mb-4">
           <img
-            src={profileImage}
-            alt=""
-            className="w-full h-96 object-cover rounded-lg"
+            src={review.userImage}
+            alt={review.userName}
+            className="w-12 h-12 rounded-full object-cover border border-white/20"
           />
+          <div>
+            <Typography variant="h6" className="text-white">
+              {review.userName}
+            </Typography>
+            <Typography className="text-xs text-gray-300">
+              {review.userEmail}
+            </Typography>
+          </div>
         </div>
-        <div className="text-center">
-          <h3 className="text-2xl font-semibold pt-3">{fullName}</h3>
-          <p className="text-sm">
-            Years of Experience :{" "}
-            <span className="font-semibold text-white">{experience}</span>
-          </p>
-        </div>
-        <div className="text-center py-3">
-          <p className="text-sm text-white">Available Days</p>
-          {availableDays.map((day) => (
-            <Chip
-              key={trainer._id}
-              value={day}
-              className="text-xs mr-1 inline-block bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30 mb-4"
-            />
+
+        <Typography className="mb-4 text-white/90">{review.text}</Typography>
+
+        <div className="flex gap-1 mb-3">
+          {[...Array(review.rating)].map((_, idx) => (
+            <Star key={idx} size={16} fill="gold" stroke="gold" />
           ))}
         </div>
-        <div className="flex justify-center gap-2 mb-2">
-          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
-            <a href={social?.facebook} target="_blank">
-              <Facebook size={17} />
-            </a>
-          </div>
-          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
-            <a href={social?.instagram} target="_blank">
-              <Instagram size={17} />
-            </a>
-          </div>
-          <div className="p-2 bg-white/10 hover:bg-pink-200/30 transition rounded-full border border-white/75">
-            <a href={social?.linkedin} target="_blank">
-              <Linkedin size={17} />
-            </a>
-          </div>
-        </div>
-        <Link to={`/trainer-detail/${_id}`}>
-          <Button className="cursor-pointer w-full text-center px-3 py-2 rounded-md font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white transition">
-            Know More
-          </Button>
-        </Link>
+
+        <Chip
+          value={review.trainerName}
+          className="text-xs inline-block bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-200 border border-purple-500/30"
+        />
       </Card>
     </motion.div>
   );
 };
 
-export default SingleTrainerCard;
+const TopReviewsSection = () => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/reviews/top`)
+      .then((res) => setReviews(res.data))
+      .catch((err) => console.error("Failed to fetch top reviews:", err));
+  }, []);
+
+  return (
+    <section className="bg-gradient-to-br from-[#1e1e2f] via-[#151525] to-[#0e0e1a] py-14">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <Typography variant="h2" className="text-white font-bold mb-2">
+            What Members Are Saying
+          </Typography>
+          <Typography className="text-white/70 max-w-xl mx-auto">
+            Read what our users think about our trainers and programs.
+          </Typography>
+        </motion.div>
+
+        <Swiper
+          modules={[Navigation]}
+          navigation
+          spaceBetween={30}
+          slidesPerView={3}
+          loop
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {reviews.map((review) => (
+            <SwiperSlide key={review._id}>
+              <ReviewCard review={review} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
+};
+
+export default TopReviewsSection;

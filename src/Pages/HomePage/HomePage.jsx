@@ -4,6 +4,8 @@ import FeaturedSection from "../../Components/Home/FeaturedSection";
 import AboutSection from "../../Components/Home/AboutSection";
 import NewsletterSection from "../../Components/Home/NewsletterSection";
 import FeaturedClasses from "../../Components/Home/FeaturedClasses/FeaturedClasses";
+import ReviewCarousel from "../../Components/Home/ReviewCarousel";
+import ReviewSection from "../../Components/Home/ReviewsSection/ReviewsSection";
 
 const HomePage = () => {
   return (
@@ -12,6 +14,7 @@ const HomePage = () => {
       <FeaturedSection></FeaturedSection>
       <AboutSection></AboutSection>
       <FeaturedClasses></FeaturedClasses>
+      <ReviewSection></ReviewSection>
       <NewsletterSection></NewsletterSection>
     </div>
   );
