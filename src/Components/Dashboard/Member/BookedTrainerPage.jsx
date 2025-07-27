@@ -6,13 +6,19 @@ import useAuth from "../../../Hooks/useAuth";
 
 const BookedTrainerPage = () => {
   const { user } = useAuth();
+  const token = user?.accessToken;
   const [selectedBooking, setSelectedBooking] = useState(null);
 
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/bookings/${user.email}`
+        `${import.meta.env.VITE_API_URL}/bookings/${user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return res.data;
     },

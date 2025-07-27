@@ -12,6 +12,7 @@ import {
 
 const ActivityLog = () => {
   const { user } = useAuth();
+  const token = user?.accessToken;
   const [applications, setApplications] = useState([]);
   const [selectedApp, setSelectedApp] = useState(null);
   const [open, setOpen] = useState(false);
@@ -22,7 +23,12 @@ const ActivityLog = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/member-applications/${user.email}`
+          `${import.meta.env.VITE_API_URL}/member-applications/${user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setApplications(res.data);
       } catch (error) {

@@ -32,7 +32,8 @@ const getTimeAgo = (createdAt) => {
 
 const ForumDetailPage = () => {
   const { id } = useParams();
-  const { user } = useAuth(); // ✅ get current user
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const { forum: post, isLoading, isError, refetch } = useSingleForum(id);
 
   if (isLoading) return <LoadingSpinner />;
@@ -69,6 +70,11 @@ const ForumDetailPage = () => {
         {
           voteType: type,
           userEmail: user?.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -86,7 +92,7 @@ const ForumDetailPage = () => {
       initial="initial"
       animate="animate"
       transition="transition"
-      className="max-w-3xl mx-auto mt-10 px-4"
+      className="max-w-3xl mx-auto mt-24 mb-16 px-4"
     >
       <Card className="bg-white/5 border-white/10 backdrop-blur-sm p-6 text-white/80">
         {/* Author Info */}

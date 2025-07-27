@@ -7,6 +7,7 @@ const ReviewModal = ({ booking, onClose }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(5);
   const { user } = useAuth();
+  const token = user?.accessToken;
 
   const handleSubmit = async () => {
     try {
@@ -21,7 +22,11 @@ const ReviewModal = ({ booking, onClose }) => {
         createdAt: new Date(),
       };
 
-      await axios.post(`${import.meta.env.VITE_API_URL}/reviews`, reviewData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/reviews`, reviewData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success("Review submitted!");
       onClose();
     } catch (err) {

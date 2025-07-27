@@ -28,6 +28,8 @@ import AdminAllTrainers from "../Components/Dashboard/Admin/AdminAllTrainers";
 import AppliedTrainersList from "../Components/Dashboard/Admin/AppliedTrainersList";
 import AppliedTrainerDetails from "../Components/Dashboard/Admin/AppliedTrainerDetails";
 import AdminBalance from "../Components/Dashboard/Admin/AdminBalance";
+import ClassDetails from "../Pages/AllClasses/ClassDetails";
+import ProfileUpdate from "../Pages/ProfileUpdate/ProfileUpdate";
 
 export const router = createBrowserRouter([
   {
@@ -68,12 +70,20 @@ export const router = createBrowserRouter([
         element: <AllClasses></AllClasses>,
       },
       {
+        path: "/class-detail/:id",
+        element: <ClassDetails></ClassDetails>,
+      },
+      {
         path: "/community",
         element: <ForumsPage></ForumsPage>,
       },
       {
         path: "/forums/:id",
         element: <ForumDetailPage></ForumDetailPage>,
+      },
+      {
+        path: "/profile",
+        element: <ProfileUpdate></ProfileUpdate>,
       },
     ],
   },

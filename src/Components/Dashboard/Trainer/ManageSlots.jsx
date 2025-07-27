@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const ManageSlots = () => {
   const { user } = useAuth();
+  const token = user?.accessToken;
   const [slots, setSlots] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +15,12 @@ const ManageSlots = () => {
   const fetchSlots = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/slots-by-email/${user.email}`
+        `${import.meta.env.VITE_API_URL}/slots-by-email/${user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setSlots(res.data);
     } catch (err) {
@@ -64,7 +70,14 @@ const ManageSlots = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${import.meta.env.VITE_API_URL}/slots/${slotId}`);
+          await axios.delete(
+            `${import.meta.env.VITE_API_URL}/slots/${slotId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           toast.success("Slot deleted successfully");
           setSlots((prev) => prev.filter((slot) => slot._id !== slotId));
         } catch (error) {

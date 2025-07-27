@@ -8,6 +8,7 @@ import { Button } from "@material-tailwind/react";
 
 const BecomeTrainer = () => {
   const { user } = useAuth();
+  const token = user?.accessToken;
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -113,7 +114,12 @@ const BecomeTrainer = () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/add-trainers`,
-        trainerInfo
+        trainerInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (res.data.insertedId) {

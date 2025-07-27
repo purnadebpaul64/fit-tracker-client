@@ -5,9 +5,10 @@ import useAuth from "../../../Hooks/useAuth";
 import useUsers from "../../../Hooks/useUsers";
 
 const AddForumForm = () => {
-  const { user } = useAuth(); // Firebase user
-  const { users = [], isLoading, isError } = useUsers(); // All users from MongoDB
-  const [dbUser, setDbUser] = useState(null); // Current Mongo user
+  const { user } = useAuth();
+  const token = user?.accessToken;
+  const { users = [], isLoading, isError } = useUsers();
+  const [dbUser, setDbUser] = useState(null);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -40,7 +41,11 @@ const AddForumForm = () => {
     };
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/forums`, forum);
+      await axios.post(`${import.meta.env.VITE_API_URL}/forums`, forum, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success("Forum posted!");
       setTitle("");
       setContent("");

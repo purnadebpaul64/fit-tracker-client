@@ -6,6 +6,7 @@ import useAuth from "../../../Hooks/useAuth";
 
 const AddSlot = () => {
   const { user } = useAuth();
+  const token = user?.accessToken;
   const [trainer, setTrainer] = useState(null);
   const [classes, setClasses] = useState([]);
   const [selectedDays, setSelectedDays] = useState([]);
@@ -56,7 +57,12 @@ const AddSlot = () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/add-slot`,
-        slotData
+        slotData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (res.data.insertedId) {
         toast.success("Slot added successfully!");

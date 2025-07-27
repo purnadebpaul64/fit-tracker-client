@@ -2,8 +2,10 @@ import { Chip } from "@material-tailwind/react";
 import React from "react";
 import { motion } from "framer-motion";
 import SingleTrainerCard from "./SingleTrainerCard";
-import useTrainers from "../../Hooks/useTrainers";
+import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
+import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
 
 const staggerContainer = {
   animate: {
@@ -20,7 +22,33 @@ const fadeInUp = {
 };
 
 const AllTrainers = () => {
-  const { trainers = [], isLoading, isError } = useTrainers();
+  const { user } = useAuth();
+  const token = user?.accessToken;
+
+  const fetchTrainers = async () => {
+    if (!user) throw new Error("User not authenticated");
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/trainers`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return data;
+  };
+
+  const {
+    data: trainers = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["trainers"],
+    queryFn: fetchTrainers,
+    staleTime: 1000 * 60 * 5,
+  });
 
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;

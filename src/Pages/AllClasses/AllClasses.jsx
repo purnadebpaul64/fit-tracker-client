@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import ClassCard from "./ClassCard";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
+import useAuth from "../../Hooks/useAuth";
 
 const staggerContainer = {
   animate: {
@@ -20,6 +21,8 @@ const fadeInUp = {
 };
 
 const AllClasses = () => {
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const [classesData, setClassesData] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -31,7 +34,12 @@ const AllClasses = () => {
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/classes-with-trainers?page=${page}&limit=6`
+        }/classes-with-trainers?page=${page}&limit=6`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         setClassesData(res.data.classes || []);

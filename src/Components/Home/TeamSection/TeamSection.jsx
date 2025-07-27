@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Chip } from "@material-tailwind/react";
 import { motion } from "framer-motion";
-import SingleClassCard from "./SingleClassCard";
-import LoadingSpinner from "../../Shared/LoadingSpinner/LoadingSpinner";
+import TrainerCard from "./TrainerCard";
 
 const staggerContainer = {
   hidden: {},
@@ -23,23 +22,21 @@ const fadeInUp = {
   },
 };
 
-const FeaturedClasses = () => {
-  const [classes, setClasses] = useState([]);
+const TeamSection = () => {
+  const [trainers, setTrainers] = useState([]);
 
   useEffect(() => {
-    const fetchFeatured = async () => {
+    const fetchTrainers = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/featured-classes`
+          `${import.meta.env.VITE_API_URL}/approved-trainers`
         );
-        setClasses(res.data);
+        setTrainers(res.data.slice(0, 4));
       } catch (error) {
-        console.error("Error fetching featured classes", error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching trainers", error);
       }
     };
-    fetchFeatured();
+    fetchTrainers();
   }, []);
 
   return (
@@ -50,10 +47,11 @@ const FeaturedClasses = () => {
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
     >
+      {/* Heading */}
       <motion.div className="text-center mb-16">
         <motion.div variants={fadeInUp}>
           <Chip
-            value="Top Booked"
+            value="Meet the Team"
             className="inline-block bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30 mb-4"
           />
         </motion.div>
@@ -61,28 +59,32 @@ const FeaturedClasses = () => {
           variants={fadeInUp}
           className="text-4xl lg:text-5xl font-bold text-white mb-6"
         >
-          Our Most Popular
+          Our Professional{" "}
           <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            {" "}
-            Classes
+            Trainers
           </span>
         </motion.h2>
         <motion.p
           variants={fadeInUp}
           className="text-xl text-white/70 max-w-4xl mx-auto"
         >
-          Explore our top 6 most booked fitness classes based on real user
-          activity. Join the programs others love!
+          Get to know the experts behind your transformation. Our certified
+          trainers bring years of experience and passion to every session.
         </motion.p>
       </motion.div>
 
+      {/* Trainer Cards Grid */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         variants={staggerContainer}
       >
-        {classes.map((cls) => (
-          <motion.div key={cls._id} variants={fadeInUp}>
-            <SingleClassCard cls={cls} />
+        {trainers.map((trainer) => (
+          <motion.div
+            key={trainer._id}
+            variants={fadeInUp}
+            className="h-full flex"
+          >
+            <TrainerCard trainer={trainer} />
           </motion.div>
         ))}
       </motion.div>
@@ -90,4 +92,4 @@ const FeaturedClasses = () => {
   );
 };
 
-export default FeaturedClasses;
+export default TeamSection;

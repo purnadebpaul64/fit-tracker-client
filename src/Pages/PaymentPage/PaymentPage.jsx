@@ -9,10 +9,13 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
 const CheckoutForm = () => {
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const location = useLocation();
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -31,7 +34,12 @@ const CheckoutForm = () => {
     try {
       const paymentIntentRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/create-payment-intent`,
-        { amount: getAmountFromPackage(bookingData.package) * 100 }
+        { amount: getAmountFromPackage(bookingData.package) * 100 },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       const clientSecret = paymentIntentRes.data.clientSecret;
@@ -61,6 +69,11 @@ const CheckoutForm = () => {
             ...bookingData,
             paymentStatus: "paid",
             paymentDetails: paymentResult.paymentIntent,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 

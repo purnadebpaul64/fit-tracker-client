@@ -6,6 +6,7 @@ import NewsletterSection from "../../Components/Home/NewsletterSection";
 import FeaturedClasses from "../../Components/Home/FeaturedClasses/FeaturedClasses";
 import ReviewSection from "../../Components/Home/ReviewsSection/ReviewsSection";
 import LatestCommunityPosts from "../../Components/Home/LatestCommunityPosts";
+import TeamSection from "../../Components/Home/TeamSection/TeamSection";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <FeaturedClasses></FeaturedClasses>
       <ReviewSection></ReviewSection>
       <LatestCommunityPosts></LatestCommunityPosts>
+      <TeamSection></TeamSection>
       <NewsletterSection></NewsletterSection>
     </div>
   );

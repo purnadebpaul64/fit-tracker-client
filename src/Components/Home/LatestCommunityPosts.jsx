@@ -6,17 +6,21 @@ import { Clock, ThumbsUp } from "lucide-react";
 import { Link } from "react-router";
 
 const staggerContainer = {
-  animate: {
+  hidden: {},
+  show: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
     },
   },
 };
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
+  hidden: { opacity: 0, y: 60 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
 };
 
 const getTimeAgo = (createdAt) => {
@@ -55,13 +59,14 @@ const LatestCommunityPosts = () => {
     );
 
   return (
-    <section className="w-11/12 mx-auto pt-16 pb-10">
-      <motion.div
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-        className="text-center mb-14"
-      >
+    <motion.section
+      className="w-11/12 mx-auto pt-20 pb-16"
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <motion.div className="text-center mb-14">
         <motion.div variants={fadeInUp}>
           <Chip
             value="Latest Community Posts"
@@ -87,10 +92,8 @@ const LatestCommunityPosts = () => {
       </motion.div>
 
       <motion.div
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
         className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={staggerContainer}
       >
         {posts.map((post) => {
           const {
@@ -141,9 +144,6 @@ const LatestCommunityPosts = () => {
                     <div className="flex items-center gap-1">
                       <ThumbsUp size={14} /> {upvotes}
                     </div>
-                    <div className="flex items-center gap-1">
-                      👎 {downvotes}
-                    </div>
                   </div>
 
                   <Link to={`/forums/${_id}`}>
@@ -161,7 +161,7 @@ const LatestCommunityPosts = () => {
           );
         })}
       </motion.div>
-    </section>
+    </motion.section>
   );
 };
 
