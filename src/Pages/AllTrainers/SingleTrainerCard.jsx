@@ -10,8 +10,16 @@ const fadeInUp = {
 };
 
 const SingleTrainerCard = ({ trainer }) => {
-  const { _id, fullName, profileImage, experience, social, availableDays } =
-    trainer;
+  const {
+    _id,
+    fullName,
+    profileImage,
+    experience,
+    social,
+    availableDays,
+    email,
+  } = trainer;
+  console.log(trainer);
 
   return (
     <motion.div variants={fadeInUp}>

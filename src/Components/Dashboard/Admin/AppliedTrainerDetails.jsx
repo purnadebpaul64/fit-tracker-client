@@ -43,7 +43,6 @@ const AppliedTrainerDetails = () => {
     fetchTrainer();
   }, [id]);
 
-  // ✅ Approve with SweetAlert confirmation
   const handleApprove = async () => {
     const result = await Swal.fire({
       title: "Approve Trainer?",
@@ -58,6 +57,7 @@ const AppliedTrainerDetails = () => {
       try {
         await axios.patch(
           `${import.meta.env.VITE_API_URL}/approve-trainer/${id}`,
+          {},
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const AppliedTrainerDetails = () => {
           }
         );
         Swal.fire("Approved!", "Trainer has been approved.", "success");
-        navigate("/admin/applied-trainers");
+        navigate("/dashboard/applied-trainer");
       } catch (err) {
         Swal.fire("Error", "Failed to approve trainer.", "error");
       }
@@ -103,7 +103,7 @@ const AppliedTrainerDetails = () => {
         "Trainer has been rejected with feedback.",
         "success"
       );
-      navigate("/admin/applied-trainers");
+      navigate("/dashboard/applied-trainer");
     } catch (err) {
       Swal.fire("Error", "Failed to reject trainer.", "error");
     } finally {

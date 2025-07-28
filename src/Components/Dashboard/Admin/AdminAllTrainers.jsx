@@ -48,6 +48,7 @@ const AdminAllTrainers = () => {
       try {
         await axios.patch(
           `${import.meta.env.VITE_API_URL}/revert-trainer-role/${id}`,
+          {},
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -21,17 +21,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchTrainerSlots = async (trainerId) => {
+const fetchTrainerSlots = async (email) => {
   const { data } = await axios.get(
-    `${import.meta.env.VITE_API_URL}/slots/${trainerId}`
+    `${import.meta.env.VITE_API_URL}/slots-email/${email}`
   );
   return data;
 };
 
-export default function useTrainerSlots(trainerId) {
+export default function useTrainerSlots(email) {
   return useQuery({
-    queryKey: ["trainer-slots", trainerId],
-    queryFn: () => fetchTrainerSlots(trainerId),
-    enabled: !!trainerId,
+    queryKey: ["trainer-slots", email],
+    queryFn: () => fetchTrainerSlots(email),
+    enabled: !!email,
   });
 }
