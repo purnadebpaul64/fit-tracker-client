@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Chip } from "@material-tailwind/react";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import SingleForumCard from "./SingleForumCard";
+import { Helmet } from "react-helmet-async";
 
 const staggerContainer = {
   animate: {
@@ -58,6 +59,9 @@ const ForumsPage = () => {
 
   return (
     <section className="w-11/12 mx-auto pt-20 pb-16">
+      <Helmet>
+        <title>FitTracker | Fourm</title>
+      </Helmet>
       <motion.div
         variants={staggerContainer}
         initial="initial"

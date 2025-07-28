@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 // Your existing imageUpload helper function
 const imageUpload = async (imageFile) => {
@@ -104,6 +105,9 @@ const AddClass = () => {
 
   return (
     <div className="max-w-xl mx-auto my-12 p-6 border bg-white rounded shadow-md">
+      <Helmet>
+        <title>Add New Class</title>
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-6 text-center">Add New Class</h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         <input

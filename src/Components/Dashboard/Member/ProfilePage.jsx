@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
 import { imageUpload } from "../../../Api/utils";
+import { Helmet } from "react-helmet-async";
 
 const ProfilePage = () => {
   const { user, updateUser } = useAuth();
@@ -56,6 +57,9 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 border rounded-xl shadow-lg space-y-6">
+      <Helmet>
+        <title>Your Profile</title>
+      </Helmet>
       <h2 className="text-2xl font-bold text-center">Your Profile</h2>
 
       {/* Profile Image */}

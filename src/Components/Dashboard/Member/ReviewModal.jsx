@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const ReviewModal = ({ booking, onClose }) => {
   const [text, setText] = useState("");
@@ -36,6 +37,9 @@ const ReviewModal = ({ booking, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <Helmet>
+        <title>Give FeedBack</title>
+      </Helmet>
       <div className="bg-white p-6 rounded-lg w-full max-w-md">
         <h2 className="text-xl font-bold mb-4">Leave a Review</h2>
 

@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { AudioWaveform, CircleDollarSign, ScrollText } from "lucide-react";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const COLORS = ["#4ADE80", "#60A5FA"];
 
@@ -45,6 +46,9 @@ const AdminBalance = () => {
 
   return (
     <div className="p-6 space-y-8">
+      <Helmet>
+        <title>Admin Balance</title>
+      </Helmet>
       <Typography variant="h4" className="text-center">
         Admin Balance Overview
       </Typography>

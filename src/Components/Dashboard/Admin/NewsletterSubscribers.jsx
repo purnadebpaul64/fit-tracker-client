@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const NewsletterSubscribers = () => {
   const { user } = useAuth();
@@ -36,6 +37,9 @@ const NewsletterSubscribers = () => {
 
   return (
     <section className="w-full lg:w-10/12 mx-auto py-8">
+      <Helmet>
+        <title>Newsletter Subscribers</title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-6 text-center">
         Newsletter Subscribers
       </h1>

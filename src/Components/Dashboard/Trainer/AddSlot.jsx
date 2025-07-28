@@ -3,6 +3,7 @@ import Select from "react-select";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const AddSlot = () => {
   const { user } = useAuth();
@@ -94,6 +95,9 @@ const AddSlot = () => {
 
   return (
     <section className="w-11/12 sm:w-8/12 mx-auto my-12 p-8 bg-white border rounded-xl">
+      <Helmet>
+        <title>Add New Slot</title>
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-6">Add New Slot</h2>
 
       {trainer ? (

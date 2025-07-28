@@ -7,10 +7,15 @@ import FeaturedClasses from "../../Components/Home/FeaturedClasses/FeaturedClass
 import ReviewSection from "../../Components/Home/ReviewsSection/ReviewsSection";
 import LatestCommunityPosts from "../../Components/Home/LatestCommunityPosts";
 import TeamSection from "../../Components/Home/TeamSection/TeamSection";
+import { Helmet } from "react-helmet-async";
 
 const HomePage = () => {
   return (
     <div className="w-11/12 mx-auto">
+      <Helmet>
+        <title>FitTracker</title>
+        <meta name="description" content="Reach out to our fitness experts!" />
+      </Helmet>
       <HeroSection></HeroSection>
       <FeaturedSection></FeaturedSection>
       <AboutSection></AboutSection>

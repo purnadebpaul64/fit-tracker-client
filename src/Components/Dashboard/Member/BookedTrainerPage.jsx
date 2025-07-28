@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import ReviewModal from "./ReviewModal";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const BookedTrainerPage = () => {
   const { user } = useAuth();
@@ -31,6 +32,9 @@ const BookedTrainerPage = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>All Booked Trainers</title>
+      </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {bookings.map((booking) => (
           <div key={booking._id} className="border p-4 rounded-lg shadow">

@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { saveUserInDb } from "../../Api/utils";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signIn, googleSignIn, loading, user } = useAuth();
@@ -64,6 +65,9 @@ const Login = () => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
+      <Helmet>
+        <title>Login - FitTracker</title>
+      </Helmet>
       <div className="flex items-center mb-3 text-white">
         <Link
           to="/"

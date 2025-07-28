@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const AppliedTrainerDetails = () => {
   const { id } = useParams();
@@ -116,6 +117,9 @@ const AppliedTrainerDetails = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-3xl">
+      <Helmet>
+        <title>Applied Trainers</title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-4">Trainer Application Details</h1>
 
       <div className="mb-6 border rounded p-4 bg-gray-50">

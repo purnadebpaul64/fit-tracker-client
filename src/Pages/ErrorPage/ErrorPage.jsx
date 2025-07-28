@@ -1,10 +1,14 @@
 import { Button, Typography } from "@material-tailwind/react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const ErrorPage = () => {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-center px-6">
+      <Helmet>
+        <title>404 | Not Found</title>
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}

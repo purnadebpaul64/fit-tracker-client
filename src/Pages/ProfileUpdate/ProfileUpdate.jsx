@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import useAuth from "../../Hooks/useAuth";
 import { imageUpload } from "../../Api/utils";
+import { Helmet } from "react-helmet-async";
 
 const ProfileUpdate = () => {
   const { user, updateUser } = useAuth();
@@ -63,6 +64,9 @@ const ProfileUpdate = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-25 mb-15 bg-white/10 p-6 border border-white/20 shadow-md rounded-xl text-white">
+      <Helmet>
+        <title>Your Profile</title>
+      </Helmet>
       <Typography
         variant="h4"
         color="blue-gray"

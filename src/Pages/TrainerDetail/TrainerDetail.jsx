@@ -226,6 +226,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import useTrainerSlots from "../../Hooks/useTrainerSlots";
+import { Helmet } from "react-helmet-async";
 
 const fetchTrainer = async (id) => {
   const { data } = await axios.get(
@@ -267,6 +268,9 @@ const TrainerDetail = () => {
 
   return (
     <section className="w-11/12 lg:w-10/12 mx-auto pt-20 pb-16">
+      <Helmet>
+        <title>{fullName} - Detils</title>
+      </Helmet>
       {/* Trainer Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
 import useUsers from "../../../Hooks/useUsers";
+import { Helmet } from "react-helmet-async";
 
 const AddForumForm = () => {
   const { user } = useAuth();
@@ -57,6 +58,9 @@ const AddForumForm = () => {
 
   return (
     <section className="p-8 border border-black rounded-2xl w-full sm:w-8/12 mx-auto mt-5">
+      <Helmet>
+        <title>Add New Forum</title>
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-4">Add a New Slot</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

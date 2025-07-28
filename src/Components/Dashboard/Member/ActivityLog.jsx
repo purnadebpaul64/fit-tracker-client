@@ -9,6 +9,7 @@ import {
   DialogFooter,
   Button,
 } from "@material-tailwind/react";
+import { Helmet } from "react-helmet-async";
 
 const ActivityLog = () => {
   const { user } = useAuth();
@@ -50,6 +51,9 @@ const ActivityLog = () => {
 
   return (
     <div className="p-5">
+      <Helmet>
+        <title>Your Activity</title>
+      </Helmet>
       <h2 className="text-xl font-bold mb-4">Trainer Application Status</h2>
       <div className="space-y-4">
         {applications.map((app) => (

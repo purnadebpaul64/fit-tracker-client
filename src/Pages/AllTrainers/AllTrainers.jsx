@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const staggerContainer = {
   animate: {
@@ -70,6 +71,9 @@ const AllTrainers = () => {
 
   return (
     <section className="w-11/12 mx-auto pt-20 pb-16">
+      <Helmet>
+        <title>All Trainer</title>
+      </Helmet>
       <motion.div
         variants={staggerContainer}
         initial="initial"

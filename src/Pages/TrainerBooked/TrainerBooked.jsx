@@ -7,6 +7,7 @@ import { CircleChevronRight, CircleDollarSign } from "lucide-react";
 import { Chip } from "@material-tailwind/react";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const TrainerBooked = () => {
   const { id: trainerId } = useParams();
@@ -73,6 +74,9 @@ const TrainerBooked = () => {
 
   return (
     <section className="w-11/12 lg:w-10/12 mx-auto pt-20 pb-16 text-white">
+      <Helmet>
+        <title>Book Trainer</title>
+      </Helmet>
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">

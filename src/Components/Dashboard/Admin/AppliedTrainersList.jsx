@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const AppliedTrainersList = () => {
   const { user } = useAuth();
@@ -37,6 +38,9 @@ const AppliedTrainersList = () => {
 
   return (
     <div className="container mx-auto p-6">
+      <Helmet>
+        <title>Applied Trainers</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-6">Applied Trainers</h1>
 
       {loading && <p>Loading applications...</p>}

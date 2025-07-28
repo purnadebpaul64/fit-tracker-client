@@ -6,6 +6,7 @@ import ClassCard from "./ClassCard";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../Hooks/useAuth";
 import { Search } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const staggerContainer = {
   animate: {
@@ -66,6 +67,9 @@ const AllClasses = () => {
 
   return (
     <section className="w-11/12 mx-auto pt-20 pb-16">
+      <Helmet>
+        <title>All Classes</title>
+      </Helmet>
       {/* HEADER */}
       <motion.div
         variants={staggerContainer}

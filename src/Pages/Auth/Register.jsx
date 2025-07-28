@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import { imageUpload, saveUserInDb } from "../../Api/utils";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, updateUser, googleSignIn, loading } = useAuth();
@@ -91,6 +92,9 @@ const Register = () => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
+      <Helmet>
+        <title>Register - FitTracker</title>
+      </Helmet>
       <div className="flex items-center mb-3 text-white">
         <Link
           to="/"

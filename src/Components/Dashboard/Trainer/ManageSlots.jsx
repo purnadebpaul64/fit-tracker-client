@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Trash2 } from "lucide-react";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ManageSlots = () => {
   const { user } = useAuth();
@@ -91,6 +92,9 @@ const ManageSlots = () => {
 
   return (
     <div className="p-4">
+      <Helmet>
+        <title>Manage Your Slots</title>
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-4">Manage Slots</h2>
 
       {slots.length === 0 ? (

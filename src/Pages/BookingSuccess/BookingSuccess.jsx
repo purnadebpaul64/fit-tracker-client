@@ -1,9 +1,13 @@
 import { PartyPopper } from "lucide-react";
 import Confetti from "react-confetti";
+import { Helmet } from "react-helmet-async";
 
 const BookingSuccess = () => {
   return (
     <section className="w-full">
+      <Helmet>
+        <title>Congratulation..</title>
+      </Helmet>
       <div className="w-full">
         <Confetti />
       </div>

@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -107,6 +108,9 @@ const CheckoutForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-20 p-8 bg-white rounded shadow">
+      <Helmet>
+        <title>Payment</title>
+      </Helmet>
       <h2 className="text-xl font-semibold mb-4 text-center">Payment</h2>
 
       <div className="mb-6 text-center">
