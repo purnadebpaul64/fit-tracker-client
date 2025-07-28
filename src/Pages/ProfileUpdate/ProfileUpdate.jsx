@@ -11,7 +11,7 @@ const ProfileUpdate = () => {
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState("");
 
-  const fileInputRef = useRef(null); // ✅ create a ref
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (user) {
@@ -50,14 +50,14 @@ const ProfileUpdate = () => {
   };
 
   const handleImageClick = () => {
-    fileInputRef.current.click(); // ✅ trigger file input
+    fileInputRef.current.click();
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      setPhotoURL(URL.createObjectURL(file)); // Preview before upload
+      setPhotoURL(URL.createObjectURL(file));
     }
   };
 
@@ -117,7 +117,7 @@ const ProfileUpdate = () => {
             {displayName || "No Name"}
           </Typography>
           <Typography variant="small" className="text-gray-300">
-            {user.email}
+            {user.role}
           </Typography>
         </div>
       )}

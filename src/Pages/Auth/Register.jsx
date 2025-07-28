@@ -215,7 +215,7 @@ const Register = () => {
           <p class="flex justify-center mt-6 text-sm text-white/75">
             Already have an account?
             <Link
-              to={"/auth"}
+              to={"/auth/login"}
               class="ml-1 text-sm font-semibold text-blue-300 underline"
             >
               Login

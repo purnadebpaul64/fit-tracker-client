@@ -14,15 +14,21 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { AudioWaveform, CircleDollarSign, ScrollText } from "lucide-react";
+import useAuth from "../../../Hooks/useAuth";
 
 const COLORS = ["#4ADE80", "#60A5FA"];
 
 const AdminBalance = () => {
   const [data, setData] = useState(null);
-
+  const { user } = useAuth();
+  const token = user?.accessToken;
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/admin/balance`)
+      .get(`${import.meta.env.VITE_API_URL}/admin/balance`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, []);

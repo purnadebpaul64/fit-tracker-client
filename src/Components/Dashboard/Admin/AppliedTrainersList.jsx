@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 
 const AppliedTrainersList = () => {
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const [appliedTrainers, setAppliedTrainers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,7 +16,12 @@ const AppliedTrainersList = () => {
     setError(null);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/applied-trainers`
+        `${import.meta.env.VITE_API_URL}/applied-trainers`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setAppliedTrainers(res.data);
     } catch (err) {

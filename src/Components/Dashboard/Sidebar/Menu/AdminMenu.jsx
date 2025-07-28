@@ -30,6 +30,11 @@ const AdminMenu = () => {
           address="add-new-class"
         />
       </Link>
+      <MenuItem
+        icon={CirclePlus}
+        label="Add New Forum"
+        address="add-new-forum"
+      />
     </>
   );
 };

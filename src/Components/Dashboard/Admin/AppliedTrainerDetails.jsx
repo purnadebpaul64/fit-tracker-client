@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const AppliedTrainerDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const [trainer, setTrainer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,7 +22,12 @@ const AppliedTrainerDetails = () => {
     setError(null);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/applied-trainers/${id}`
+        `${import.meta.env.VITE_API_URL}/applied-trainers/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setTrainer(res.data);
       setFeedback(res.data.feedback || "");
@@ -49,7 +56,12 @@ const AppliedTrainerDetails = () => {
     if (result.isConfirmed) {
       try {
         await axios.patch(
-          `${import.meta.env.VITE_API_URL}/approve-trainer/${id}`
+          `${import.meta.env.VITE_API_URL}/approve-trainer/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         Swal.fire("Approved!", "Trainer has been approved.", "success");
         navigate("/admin/applied-trainers");
@@ -59,7 +71,7 @@ const AppliedTrainerDetails = () => {
     }
   };
 
-  // ✅ Reject with feedback validation
+  // Reject with feedback validation
   const handleReject = async () => {
     if (feedback.trim() === "") {
       Swal.fire(
@@ -76,6 +88,11 @@ const AppliedTrainerDetails = () => {
         `${import.meta.env.VITE_API_URL}/reject-trainer/${id}`,
         {
           feedback,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

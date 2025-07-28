@@ -25,10 +25,10 @@ export const saveUserInDb = async (user) => {
   );
 };
 
-export const getAllTrainers = async () => {
-  const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/trainers`);
-  return data;
-};
+// export const getAllTrainers = async () => {
+//   const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/trainers`);
+//   return data;
+// };
 export const getAllForums = async () => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_API_URL}/get-forums`

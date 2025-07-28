@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Chip } from "@material-tailwind/react";
+import { Chip, Input } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import ClassCard from "./ClassCard";
 import LoadingSpinner from "../../Components/Shared/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../Hooks/useAuth";
+import { Search } from "lucide-react";
 
 const staggerContainer = {
   animate: {
@@ -27,14 +28,16 @@ const AllClasses = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
-  useEffect(() => {
+  const fetchClasses = () => {
     setLoading(true);
     axios
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/classes-with-trainers?page=${page}&limit=6`,
+        }/classes-with-trainers?page=${page}&limit=6&search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,12 +50,23 @@ const AllClasses = () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [page]);
+  };
+
+  useEffect(() => {
+    fetchClasses();
+  }, [page, search]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1); // Reset to page 1
+    setSearch(searchInput);
+  };
 
   if (loading) return <LoadingSpinner />;
 
   return (
     <section className="w-11/12 mx-auto pt-20 pb-16">
+      {/* HEADER */}
       <motion.div
         variants={staggerContainer}
         initial="initial"
@@ -83,6 +97,24 @@ const AllClasses = () => {
         </motion.p>
       </motion.div>
 
+      {/* SEARCH BAR */}
+      <form onSubmit={handleSearch} className="mb-10 max-w-lg mx-auto relative">
+        <Input
+          color="purple"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search classes..."
+          className="text-white pr-32 rounded-full bg-white/10"
+        />
+        <button
+          type="submit"
+          className="absolute right-1 top-1 bottom-1 px-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold"
+        >
+          <Search></Search>
+        </button>
+      </form>
+
+      {/* CLASS GRID */}
       <motion.div
         variants={staggerContainer}
         initial="initial"
@@ -94,6 +126,7 @@ const AllClasses = () => {
         ))}
       </motion.div>
 
+      {/* PAGINATION */}
       <div className="flex justify-center mt-10 gap-2">
         {[...Array(totalPages)].map((_, idx) => (
           <button

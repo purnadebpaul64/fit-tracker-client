@@ -30,6 +30,10 @@ import AppliedTrainerDetails from "../Components/Dashboard/Admin/AppliedTrainerD
 import AdminBalance from "../Components/Dashboard/Admin/AdminBalance";
 import ClassDetails from "../Pages/AllClasses/ClassDetails";
 import ProfileUpdate from "../Pages/ProfileUpdate/ProfileUpdate";
+import AdminRoute from "./AdminRoute";
+import TrainerRoute from "./TrainerRoute";
+import ATRoute from "./ATRoute";
+import UserRoute from "./UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +55,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/become-trainer",
-        element: <BecomeTrainer />,
+        element: (
+          <PrivateRoute>
+            <BecomeTrainer />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/book-session/:id",
@@ -59,7 +67,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <PaymentPage></PaymentPage>,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <PaymentPage></PaymentPage>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/booking-success",
@@ -83,7 +97,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <ProfileUpdate></ProfileUpdate>,
+        element: (
+          <PrivateRoute>
+            <ProfileUpdate></ProfileUpdate>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -92,7 +110,7 @@ export const router = createBrowserRouter([
     element: <AuthLayout></AuthLayout>,
     children: [
       {
-        path: "/auth",
+        path: "/auth/login",
         element: <Login></Login>,
       },
       {
@@ -111,51 +129,123 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "add-new-slot",
-        element: <AddSlot></AddSlot>,
+        element: (
+          <PrivateRoute>
+            <TrainerRoute>
+              <AddSlot></AddSlot>
+            </TrainerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-new-class",
-        element: <AddClass></AddClass>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AddClass></AddClass>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-new-forum",
-        element: <AddForumForm></AddForumForm>,
+        element: (
+          <PrivateRoute>
+            <ATRoute>
+              <AddForumForm></AddForumForm>
+            </ATRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-slots",
-        element: <ManageSlots></ManageSlots>,
+        element: (
+          <PrivateRoute>
+            <TrainerRoute>
+              <ManageSlots></ManageSlots>
+            </TrainerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "activity-log",
-        element: <ActivityLog></ActivityLog>,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <ActivityLog></ActivityLog>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "booked-trainer",
-        element: <BookedTrainerPage></BookedTrainerPage>,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <BookedTrainerPage></BookedTrainerPage>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "your-profile",
-        element: <ProfilePage></ProfilePage>,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <ProfilePage></ProfilePage>
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "newsletter-subs",
-        element: <NewsletterSubscribers></NewsletterSubscribers>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <NewsletterSubscribers></NewsletterSubscribers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-trainers",
-        element: <AdminAllTrainers></AdminAllTrainers>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminAllTrainers></AdminAllTrainers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "applied-trainer",
-        element: <AppliedTrainersList></AppliedTrainersList>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AppliedTrainersList></AppliedTrainersList>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "applied-trainers/:id",
-        element: <AppliedTrainerDetails></AppliedTrainerDetails>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AppliedTrainerDetails></AppliedTrainerDetails>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "balance",
-        element: <AdminBalance></AdminBalance>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminBalance></AdminBalance>,
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },

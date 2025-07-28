@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../../../Hooks/useAuth";
 
 const NewsletterSubscribers = () => {
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const [subscribers, setSubscribers] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -11,7 +14,12 @@ const NewsletterSubscribers = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/newsletter`
+        `${import.meta.env.VITE_API_URL}/newsletter`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setSubscribers(response.data);
     } catch (error) {

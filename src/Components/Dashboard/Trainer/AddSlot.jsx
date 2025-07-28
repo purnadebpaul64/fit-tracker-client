@@ -17,7 +17,11 @@ const AddSlot = () => {
   // Fetch trainer data
   useEffect(() => {
     const fetchTrainer = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/trainers`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/trainers`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const matched = res.data.find((t) => t.email === user?.email);
       setTrainer(matched);
     };

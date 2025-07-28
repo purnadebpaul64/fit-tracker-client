@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const AdminAllTrainers = () => {
+  const { user } = useAuth();
+  const token = user?.accessToken;
   const [trainers, setTrainers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -44,7 +47,12 @@ const AdminAllTrainers = () => {
       setDeletingId(id);
       try {
         await axios.patch(
-          `${import.meta.env.VITE_API_URL}/revert-trainer-role/${id}`
+          `${import.meta.env.VITE_API_URL}/revert-trainer-role/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         Swal.fire("Removed!", "Trainer role reverted to member.", "success");
         fetchTrainers();
